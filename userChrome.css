@@ -1,0 +1,184 @@
+:root {
+    /* delay before expanding tabs, set to '0' for no delay */
+    --delay: 0;
+    --transition-time: 0.2s;
+    --positionX1: 48px; /* '48px' for left, '0px' for right sidebar */
+    --positionX2: absolute; /* 'absolute' for left, 'none' for right sidebar */
+    /* width of the collapsed sidebar in fullscreen mode ('1px' or '48px') */
+    --fullscreen-sidebar-width: 1px;
+    box-shadow: rgba(17, 17, 26, 0.05) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
+}
+
+
+.tabbrowser-tab {
+  visibility: collapse;
+}
+
+#nav-bar {
+  margin-right: 12rem;
+  box-shadow: none !important;
+
+}
+
+[uidensity="compact"]:root .titlebar-button {
+  height: 35px !important;
+ 
+}
+[uidensity="compact"]:root #nav-bar {
+ margin-top: -34px;
+
+}
+
+#titlebar-spacer {
+  background-color: var(--chrome-secondary-background-color);
+}
+#titlebar-buttonbox-container {
+  background-color: var(--chrome-secondary-background-color);
+}
+.titlebar-color {
+  background-color: var(--toolbar-bgcolor);
+}
+
+#main-window[inFullscreen="true"] #sidebar-box,
+#main-window[inFullscreen="true"] #sidebar-box + splitter {
+    visibility: collapse;
+}
+
+#sidebar-box #sidebar-header {
+  display: none !important;
+}
+/* General styles */
+#browser {
+    position: relative;
+}
+
+#nav-bar, #urlbar {
+    z-index: 100;
+}
+
+#sidebar-box:not([lwt-sidebar]){
+    appearance: unset !important;
+}
+
+#sidebar-box[sidebarcommand*="tabcenter"] {
+    z-index: 1;
+}
+
+#sidebar-box[sidebarcommand*="tabcenter"] #sidebar-header {
+    visibility: collapse;
+    display: none;
+}
+
+[sidebarcommand*="tabcenter"] #sidebar,
+#sidebar-box[sidebarcommand*="tabcenter"] {
+    min-width: 48px !important;
+    max-width: 48px !important;
+    width: 48px;
+}
+
+#sidebar-box[sidebarcommand*="tabcenter"]:not([hidden]) {
+    display: block;
+    position: var(--positionX2);
+    min-width: 48px;
+    max-width: 48px;
+    overflow: hidden;
+    border-right: 1px solid var(--sidebar-border-color);
+    z-index: 1;
+    top: 0;
+    bottom: 0;
+}
+
+/* use :where() selector to lower specificity */
+:where(#main-window[inFullscreen]) #sidebar-box[sidebarcommand*="tabcenter"]:not([hidden]) {
+    min-width: var(--fullscreen-sidebar-width) !important;
+    max-width: var(--fullscreen-sidebar-width) !important;
+}
+
+#sidebar-box[sidebarcommand*="tabcenter"]:hover #sidebar,
+#sidebar-box[sidebarcommand*="tabcenter"]:hover {
+    min-width: 10vw !important;
+    width: 30vw !important;
+    max-width: 200px !important;
+    z-index: 1 !important;
+    transition: all var(--transition-time) ease var(--delay);
+}
+
+/* used for delay function */
+#sidebar-box[sidebarcommand*="tabcenter"]:not(:hover) #sidebar,
+#sidebar-box[sidebarcommand*="tabcenter"]:not(:hover) {
+    transition: all var(--transition-time) ease 0s;
+}
+
+@media (width >= 1200px) {
+    #sidebar-box[sidebarcommand*="tabcenter"]:hover #sidebar,
+    #sidebar-box[sidebarcommand*="tabcenter"]:hover {
+        max-width: 250px !important;
+    }
+}
+
+[sidebarcommand*="tabcenter"] ~ #sidebar-splitter {
+    display: none;
+}
+
+[sidebarcommand*="tabcenter"] #sidebar {
+    max-height: 100%;
+    height: 100%;
+}
+
+#main-window:not([inFullscreen]) #sidebar-box[sidebarcommand*="tabcenter"]:not([hidden]) ~ #appcontent {
+    margin-left: var(--positionX1);
+}
+
+#main-window[inFullscreen]:not([inDOMFullscreen]) #sidebar-box[sidebarcommand*="tabcenter"]:not([hidden]) ~ #appcontent {
+    margin-left: var(--fullscreen-sidebar-width);
+}
+
+#main-window[inFullscreen] #sidebar {
+    height: 100vh;
+}
+
+[sidebarcommand*="tabcenter"] #sidebar-header {
+    background: #0C0C0D;
+    border-bottom: none !important;
+}
+
+[sidebarcommand*="tabcenter"] ~ #sidebar-splitter {
+    border-right-color: #0C0C0D !important;
+    border-left-color: #0C0C0D !important;
+}
+
+[sidebarcommand*="tabcenter"] #sidebar-switcher-target,
+[sidebarcommand*="tabcenter"] #sidebar-close {
+    filter: invert(100%);
+}
+
+
+@media (max-width: 630px) {
+    #urlbar-container {
+        min-width: 60% !important;
+    }
+
+    #menubar-items {
+        display: none !important;
+    }
+    #star-button-box{
+        display: none !important;
+    }
+    #tracking-protection-icon-box{
+        display: none !important;
+    }
+    #identity-box{
+        display: none !important;
+    }
+    #urlbar-zoom-button{
+        display: none !important;
+    }
+    #home-button{
+        display: none !important;
+    }
+    #bookmarks-menu-button{
+        display: none !important;
+    }
+    }
+}
+}
